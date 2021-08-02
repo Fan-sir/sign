@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xk.sign.mapper.RootMapper">
+
+    <resultMap id="root" type="com.xk.sign.bean.Root">
+        <id column="id" property="id"/>
+        <result column="username" property="username"/>
+        <result column="password" property="password"/>
+        <association property="role" javaType="com.xk.sign.bean.Role">
+            <id column="roleId" property="id"/>
+            <result column="roleName" property="roleName"/>
+        </association>
+    </resultMap>
+    <select id="getRootByMessage" resultMap="root">
+        SELECT *
+        FROM root rt,
+             role r
+        WHERE rt.username = #{username}
+          AND rt.password = #{password}
+          AND rt.roleId = r.id
+    </select>
+</mapper>

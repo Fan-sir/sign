@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xk.sign.mapper.SubMenuMapper">
+    <select id="getSubMenus" parameterType="int" resultType="com.xk.sign.bean.SubMenu">
+        SELECT *
+        FROM sub_menu
+        WHERE menuId = #{menuId}
+          AND roleId = #{roleId}
+    </select>
+</mapper>
