@@ -17,7 +17,7 @@
 
     <update id="addTime" parameterType="map">
         update sign_time
-        set ${week} = #{time}
+        set ${week} = #{time} + ${week}
         where userId = #{userId}
           and weekly = #{weekly}
     </update>
