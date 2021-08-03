@@ -1,0 +1,8 @@
+{
+  "properties": [
+    {
+      "name": "week",
+      "type": "java.lang.Integer",
+      "description": "Description for time.week."
+    }
+  ] }

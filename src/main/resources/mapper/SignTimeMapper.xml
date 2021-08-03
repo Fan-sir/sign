@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xk.sign.mapper.SignTimeMapper">
+
+    <update id="addIndexTime" parameterType="map">
+        update sign_time
+        set indexTime = #{indexTime}
+        where userId = #{userId}
+    </update>
+
+    <select id="findIndexTime" parameterType="int" resultType="com.xk.sign.bean.SignTime">
+        select *
+        from sign_time
+        where userId = #{userId}
+    </select>
+
+    <update id="addTime" parameterType="map">
+        update sign_time
+        set ${week} = #{time}
+        where userId = #{userId}
+          and weekly = #{weekly}
+    </update>
+
+    <update id="deleteIndexTime" parameterType="map">
+        update sign_time
+        set indexTime = null
+        where userId = #{userId}
+          and weekly = #{weekly}
+    </update>
+</mapper>

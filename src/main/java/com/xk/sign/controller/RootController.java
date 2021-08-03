@@ -16,7 +16,6 @@ public class RootController {
     @Resource(name = "loginService")
     private LoginService loginService;
 
-
     @RequestMapping("/login")
     public String login(@RequestBody Root root) {
         HashMap<String, Object> map = loginService.login(root.getUsername(), root.getPassword());

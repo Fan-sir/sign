@@ -13,3 +13,7 @@ mybatis:
   type-aliases-package: com.example.demo.model
 server:
   port: 9000
+
+# 值为当前周 减去 你想要的当前周为第几周的周
+week: 27
+

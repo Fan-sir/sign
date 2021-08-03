@@ -1,9 +1,10 @@
 package com.xk.sign.service;
 
-import com.xk.sign.bean.Menu;
-
-import java.util.List;
+import java.util.HashMap;
 
 public interface MenuService {
-    List<Menu> getMenus();
+
+    HashMap<String, String> signIn(Integer userNo);
+
+    HashMap<String, String> signOut(Integer userNo);
 }
