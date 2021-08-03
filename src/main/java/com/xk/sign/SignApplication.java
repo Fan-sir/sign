@@ -4,7 +4,7 @@ import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-@MapperScan("com/xk/SIGN/mapper")
+@MapperScan("com/xk/sign/mapper")
 @SpringBootApplication
 public class SignApplication {
 

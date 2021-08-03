@@ -9,6 +9,7 @@
         <result column="url" property="url"/>
         <result column="icon" property="icon"/>
         <result column="color" property="color"/>
+        <result column="menuId" property="menuId"/>
         <association property="role" javaType="com.xk.sign.bean.Role">
             <id column="roleId" property="id"/>
             <result column="roleName" property="roleName"/>

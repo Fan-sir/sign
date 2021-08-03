@@ -33,9 +33,8 @@ public class LoginServiceImpl implements LoginService {
             List<Menu> menus = menuMapper.getMenus(root.getId());
             if (null != menus) {
                 for (Menu menu : menus) {
-                    menu.setSubMenuList(subMenuMapper.getSubMenus(menu.getId(), menu.getRole().getId()));
+                    menu.setSubMenuList(subMenuMapper.getSubMenus(menu.getMenuId(), menu.getRole().getId()));
                 }
-                System.out.println(menus);
                 map.put("menus", menus);
             }
             flag = "ok";

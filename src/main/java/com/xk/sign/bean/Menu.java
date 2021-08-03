@@ -8,8 +8,17 @@ public class Menu {
     private String url;
     private String icon;
     private String color;
+    private Integer menuId;
     private Role role;
     private List<SubMenu> subMenuList;
+
+    public Integer getMenuId() {
+        return menuId;
+    }
+
+    public void setMenuId(Integer menuId) {
+        this.menuId = menuId;
+    }
 
     public String getColor() {
         return color;
@@ -75,6 +84,7 @@ public class Menu {
                 ", url='" + url + '\'' +
                 ", icon='" + icon + '\'' +
                 ", color='" + color + '\'' +
+                ", menuId=" + menuId +
                 ", role=" + role +
                 ", subMenuList=" + subMenuList +
                 '}';
