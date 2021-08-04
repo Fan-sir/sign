@@ -32,21 +32,24 @@ public class MenuServiceImpl implements MenuService {
         String flag;
         User user = userMapper.find(userNo);
         HashMap<String, String> mapFlag = new HashMap<>();
-        if (null != user) {
-            SignTime signTime = signTimeMapper.findIndexTime(user.getId());
-            if (signTime.getIndexTime() != null) {
-                flag = "error";
-                mapFlag.put("flag", flag);
-                return mapFlag;
-            }
-            long time = new Date().getTime();
-            HashMap<String, Object> map = new HashMap<>();
-            map.put("indexTime", time);
-            map.put("userId", user.getId());
-            signTimeMapper.addIndexTime(map);
-            flag = "ok";
+        if (null == user) {
+            flag = "error";
             mapFlag.put("flag", flag);
+            return mapFlag;
         }
+        SignTime signTime = signTimeMapper.findIndexTime(user.getId());
+        if (signTime.getIndexTime() != null) {
+            flag = "repeat";
+            mapFlag.put("flag", flag);
+            return mapFlag;
+        }
+        long time = new Date().getTime();
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("indexTime", time);
+        map.put("userId", user.getId());
+        signTimeMapper.addIndexTime(map);
+        flag = "ok";
+        mapFlag.put("flag", flag);
 
         return mapFlag;
     }
@@ -56,26 +59,29 @@ public class MenuServiceImpl implements MenuService {
         String flag;
         User user = userMapper.find(userNo);
         HashMap<String, String> mapFlag = new HashMap<>();
-        if (user != null) {
-            SignTime signTime = signTimeMapper.findIndexTime(user.getId());
-            if (signTime.getIndexTime() == null) {
-                flag = "error";
-                mapFlag.put("flag", flag);
-                return mapFlag;
-            }
-            float time1 = TimeUtil.time(signTime.getIndexTime());
-            HashMap<String, Object> map = new HashMap<>();
-            String week = TimeUtil.getDayOfWeekEng();
-            Integer weekly = timeUtil.getWeek();
-            map.put("week", week);
-            map.put("userId", user.getId());
-            map.put("time", time1);
-            map.put("weekly", weekly);
-            signTimeMapper.addTime(map);
-            signTimeMapper.deleteIndexTime(map);
-            flag = "ok";
+        if (null == user){
+            flag = "error";
             mapFlag.put("flag", flag);
+            return mapFlag;
         }
+        SignTime signTime = signTimeMapper.findIndexTime(user.getId());
+        if (signTime.getIndexTime() == null) {
+            flag = "repeat";
+            mapFlag.put("flag", flag);
+            return mapFlag;
+        }
+        float time1 = TimeUtil.time(signTime.getIndexTime());
+        HashMap<String, Object> map = new HashMap<>();
+        String week = TimeUtil.getDayOfWeekEng();
+        Integer weekly = timeUtil.getWeek();
+        map.put("week", week);
+        map.put("userId", user.getId());
+        map.put("time", time1);
+        map.put("weekly", weekly);
+        signTimeMapper.addTime(map);
+        signTimeMapper.deleteIndexTime(map);
+        flag = "ok";
+        mapFlag.put("flag", flag);
         return mapFlag;
     }
 
