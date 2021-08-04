@@ -28,4 +28,43 @@
         where userId = #{userId}
           and weekly = #{weekly}
     </update>
+
+    <resultMap id="findTimeData" type="com.xk.sign.bean.SignTime">
+        <id column="sid" property="id"/>
+        <result column="monday" property="monday"/>
+        <result column="tuesday" property="tuesday"/>
+        <result column="wednesday" property="wednesday"/>
+        <result column="thursday" property="thursday"/>
+        <result column="friday" property="friday"/>
+        <result column="saturday" property="saturday"/>
+        <result column="sunday" property="sunday"/>
+        <result column="weekly" property="weekly"/>
+        <association property="userInfo" javaType="com.xk.sign.bean.UserInfo">
+            <id column="uid" property="id"/>
+            <result column="realName" property="realName"/>
+        </association>
+    </resultMap>
+
+    <select id="findTimeData" resultMap="findTimeData">
+        select s.id sid,
+               monday,
+               tuesday,
+               wednesday,
+               thursday,
+               friday,
+               saturday,
+               sunday,
+               weekly,
+               u.id uid,
+               realName
+        from sign_time s,
+             user_info u
+        WHERE s.userId = u.userId
+    </select>
+
+    <delete id="delSignTimeIds" parameterType="int">
+        delete
+        from sign_time
+        where id = #{id}
+    </delete>
 </mapper>

@@ -13,6 +13,7 @@ import javax.annotation.Resource;
 import java.util.Date;
 import java.util.HashMap;
 
+@Transactional
 @Service("menuService")
 public class MenuServiceImpl implements MenuService {
 
@@ -26,7 +27,6 @@ public class MenuServiceImpl implements MenuService {
     private TimeUtil timeUtil;
 
     @Override
-    @Transactional
     public HashMap<String, String> signIn(Integer userNo) {
 
         String flag;

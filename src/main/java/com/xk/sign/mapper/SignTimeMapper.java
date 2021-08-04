@@ -4,6 +4,7 @@ import com.xk.sign.bean.SignTime;
 import org.springframework.stereotype.Repository;
 
 import java.util.HashMap;
+import java.util.List;
 
 @Repository("signTimeMapper")
 public interface SignTimeMapper {
@@ -14,4 +15,8 @@ public interface SignTimeMapper {
     void addTime(HashMap<String, Object> map);
 
     void deleteIndexTime(HashMap<String, Object> map);
+
+    List<SignTime> findTimeData();
+
+    void delSignTimeIds(Integer integer);
 }

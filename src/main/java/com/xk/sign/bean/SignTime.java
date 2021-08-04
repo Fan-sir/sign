@@ -11,7 +11,26 @@ public class SignTime {
     private Float sunday;
     private Long indexTime;
     private String weekly;
+    private Float timeWeekTotal;
+    private UserInfo userInfo;
     private User user;
+
+
+    public UserInfo getUserInfo() {
+        return userInfo;
+    }
+
+    public void setUserInfo(UserInfo userInfo) {
+        this.userInfo = userInfo;
+    }
+
+    public Float getTimeWeekTotal() {
+        return timeWeekTotal;
+    }
+
+    public void setTimeWeekTotal(Float timeWeekTotal) {
+        this.timeWeekTotal = timeWeekTotal;
+    }
 
     public Integer getId() {
         return id;
@@ -114,6 +133,8 @@ public class SignTime {
                 ", sunday=" + sunday +
                 ", indexTime=" + indexTime +
                 ", weekly='" + weekly + '\'' +
+                ", timeWeekTotal=" + timeWeekTotal +
+                ", userInfo=" + userInfo +
                 ", user=" + user +
                 '}';
     }
