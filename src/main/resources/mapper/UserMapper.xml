@@ -34,11 +34,11 @@
         from user_info
         where userId = #{userId};
         delete
+        from sign_time
+        where userId = #{userId};
+        delete
         from user
         where id = #{userId};
-        delete
-        from sign_time
-        where userId = #{userId}
     </delete>
 
     <insert id="addUser" parameterType="com.xk.sign.bean.UserInfo" useGeneratedKeys="true" keyProperty="user.id">

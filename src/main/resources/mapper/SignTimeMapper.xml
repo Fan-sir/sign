@@ -90,4 +90,9 @@
         FROM sign_time
         WHERE userId = #{userId};
     </select>
+
+    <insert id="createSignTimeByUserId" parameterType="int">
+        insert into sign_time(weekly, userId)
+        values (#{weekly}, #{userId})
+    </insert>
 </mapper>

@@ -8,7 +8,7 @@ import java.util.List;
 
 @Repository("signTimeMapper")
 public interface SignTimeMapper {
-    void addIndexTime(HashMap<String,Object> map);
+    void addIndexTime(HashMap<String, Object> map);
 
     SignTime findIndexTime(Integer id);
 
@@ -27,4 +27,6 @@ public interface SignTimeMapper {
     void updateWeekly(Integer weekly);
 
     Float getTotalTime(Integer id);
+
+    void createSignTimeByUserId(Integer weekly, Integer userId);
 }
