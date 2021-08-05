@@ -10,7 +10,7 @@ public class SignTime {
     private Float saturday;
     private Float sunday;
     private Long indexTime;
-    private String weekly;
+    private Integer weekly;
     private Float timeWeekTotal;
     private UserInfo userInfo;
     private User user;
@@ -104,12 +104,12 @@ public class SignTime {
         this.indexTime = indexTime;
     }
 
-    public String getWeekly() {
+    public Integer getWeekly() {
         return weekly;
     }
 
     public void setWeekly(String weekly) {
-        this.weekly = weekly;
+        this.weekly = Integer.valueOf(weekly);
     }
 
     public User getUser() {

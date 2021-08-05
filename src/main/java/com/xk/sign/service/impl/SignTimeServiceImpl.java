@@ -36,12 +36,10 @@ public class SignTimeServiceImpl implements SignTimeService {
     public HashMap<String, Object> delSignTimeIds(List<Integer> list) {
         String flag = "ok";
         HashMap<String, Object> map = new HashMap<>();
-        System.out.println(list);
         for (Integer i : list) {
             signTimeMapper.delSignTimeIds(i);
         }
         map.put("flag", flag);
-        System.out.println(flag);
         return map;
     }
 }

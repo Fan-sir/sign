@@ -19,4 +19,10 @@ public interface SignTimeMapper {
     List<SignTime> findTimeData();
 
     void delSignTimeIds(Integer integer);
+
+    void clearIndexTime();
+
+    void createUserIdByUser();
+
+    void updateWeekly();
 }

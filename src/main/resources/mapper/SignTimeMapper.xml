@@ -67,4 +67,21 @@
         from sign_time
         where id = #{id}
     </delete>
+
+    <update id="clearIndexTime">
+        update sign_time
+        set indexTime = null
+    </update>
+
+    <insert id="createUserIdByUser">
+        INSERT INTO sign_time (userId)
+        SELECT id
+        FROM `user`
+    </insert>
+
+    <update id="updateWeekly" parameterType="int">
+        update sign_time
+        set weekly = #{weekly}
+        where weekly IS NULL;
+    </update>
 </mapper>
