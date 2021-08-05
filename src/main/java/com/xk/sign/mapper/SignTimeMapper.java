@@ -24,5 +24,7 @@ public interface SignTimeMapper {
 
     void createUserIdByUser();
 
-    void updateWeekly();
+    void updateWeekly(Integer weekly);
+
+    Float getTotalTime(Integer id);
 }

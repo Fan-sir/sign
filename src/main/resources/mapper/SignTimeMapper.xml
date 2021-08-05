@@ -84,4 +84,10 @@
         set weekly = #{weekly}
         where weekly IS NULL;
     </update>
+
+    <select id="getTotalTime" parameterType="int" resultType="float">
+        SELECT SUM(monday + tuesday + wednesday + thursday + friday + saturday + sunday) totalTime
+        FROM sign_time
+        WHERE userId = #{userId};
+    </select>
 </mapper>

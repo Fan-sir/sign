@@ -6,7 +6,16 @@ public class UserInfo {
     private String classes;
     private String phone;
     private String qq;
+    private Float totalTime;
     private User user;
+
+    public Float getTotalTime() {
+        return totalTime;
+    }
+
+    public void setTotalTime(Float totalTime) {
+        this.totalTime = totalTime;
+    }
 
     public String getClasses() {
         return classes;
@@ -64,6 +73,7 @@ public class UserInfo {
                 ", classes='" + classes + '\'' +
                 ", phone='" + phone + '\'' +
                 ", qq='" + qq + '\'' +
+                ", totalTime=" + totalTime +
                 ", user=" + user +
                 '}';
     }

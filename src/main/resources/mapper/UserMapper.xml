@@ -9,4 +9,78 @@
         where userNo = #{userNo}
     </select>
 
+    <resultMap id="userList" type="com.xk.sign.bean.UserInfo">
+        <id column="uiId" property="id"/>
+        <result column="realName" property="realName"/>
+        <result column="classes" property="classes"/>
+        <result column="qq" property="qq"/>
+        <result column="phone" property="phone"/>
+        <association property="user" javaType="com.xk.sign.bean.User">
+            <id column="userId" property="id"/>
+            <result column="userNo" property="userNo"/>
+            <result column="password" property="password"/>
+        </association>
+    </resultMap>
+
+    <select id="getUserList" resultMap="userList">
+        select ui.*, ui.id uiId, u.id, u.userNo
+        from user_info ui,
+             user u
+        where ui.userId = u.id
+    </select>
+
+    <delete id="delUserByUserId" parameterType="int">
+        delete
+        from user_info
+        where userId = #{userId};
+        delete
+        from user
+        where id = #{userId};
+        delete
+        from sign_time
+        where userId = #{userId}
+    </delete>
+
+    <insert id="addUser" parameterType="com.xk.sign.bean.UserInfo" useGeneratedKeys="true" keyProperty="user.id">
+        insert into user(userNo, password, roleId)
+        values (#{user.userNo}, #{user.userNo}, 3);
+    </insert>
+
+    <insert id="addUserInfo" parameterType="com.xk.sign.bean.UserInfo">
+        insert into user_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="realName!=null and '' != realName">
+                realName,
+            </if>
+            <if test="classes!=null and '' != classes">
+                classes,
+            </if>
+            <if test="phone!=null and '' != phone">
+                phone,
+            </if>
+            <if test="qq!=null and '' != qq">
+                qq,
+            </if>
+            <if test="user.id!=null and '' != user.id">
+                userId
+            </if>
+        </trim>
+        <trim prefix="values(" suffix=")" suffixOverrides=",">
+            <if test="realName!=null and '' != realName">
+                #{realName},
+            </if>
+            <if test="classes!=null and '' != classes">
+                #{classes},
+            </if>
+            <if test="phone!=null and '' != phone">
+                #{phone},
+            </if>
+            <if test="qq!=null and '' != qq">
+                #{qq},
+            </if>
+            <if test="user.id!=null and '' != user.id">
+                #{user.id}
+            </if>
+        </trim>
+    </insert>
 </mapper>

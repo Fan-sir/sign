@@ -16,7 +16,7 @@ public class Test {
         c.setFirstDayOfWeek(Calendar.MONDAY);
         //设置在一年中第一个星期所需最少天数
         c.setMinimalDaysInFirstWeek(1);
-        c.set(2021, Calendar.JANUARY, 1, 20, 59, 59);
+        c.set(2021, Calendar.AUGUST, 9, 0, 0, 0);
         //获得当前日期属于今年的第几周
         int weekOfYearLastWeek = c.get(Calendar.WEEK_OF_YEAR);
         if (weekOfYearLastWeek - week < 0) {
