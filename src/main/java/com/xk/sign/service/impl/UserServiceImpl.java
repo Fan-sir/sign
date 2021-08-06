@@ -60,4 +60,14 @@ public class UserServiceImpl implements UserService {
         map.put("flag", flag);
         return map;
     }
+
+    @Override
+    public HashMap<String, Object> editUser(UserInfo userInfo) {
+        String flag = "ok";
+        HashMap<String, Object> map = new HashMap<>();
+        userMapper.editUser(userInfo);
+        map.put("flag", flag);
+
+        return map;
+    }
 }

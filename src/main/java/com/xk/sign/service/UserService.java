@@ -10,4 +10,6 @@ public interface UserService {
     HashMap<String, Object> delUserByUserId(List<Integer> list);
 
     HashMap<String, Object> addUser(UserInfo userInfo);
+
+    HashMap<String, Object> editUser(UserInfo userInfo);
 }

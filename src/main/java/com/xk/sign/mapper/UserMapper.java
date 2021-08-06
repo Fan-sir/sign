@@ -18,4 +18,6 @@ public interface UserMapper {
     void addUser(UserInfo userInfo);
 
     void addUserInfo(UserInfo userInfo);
+
+    void editUser(UserInfo userInfo);
 }

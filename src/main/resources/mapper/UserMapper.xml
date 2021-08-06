@@ -83,4 +83,32 @@
             </if>
         </trim>
     </insert>
+
+    <update id="editUser" parameterType="com.xk.sign.bean.UserInfo">
+        update user_info
+        set
+        <trim suffixOverrides=",">
+            <if test="realName != null and '' != realName">
+                realName = #{realName},
+            </if>
+            <if test="classes != null and '' != classes">
+                classes = #{classes},
+            </if>
+            <if test="qq != null">
+                qq = #{qq},
+            </if>
+            <if test="phone != null">
+                phone = #{phone}
+            </if>
+
+        </trim>
+        where userId = #{user.id};
+        update user set
+        <trim suffixOverrides=",">
+            <if test="user.userNo != null and '' != user.userNo">
+                userNo = #{user.userNo}
+            </if>
+        </trim>
+        where id = #{user.id}
+    </update>
 </mapper>

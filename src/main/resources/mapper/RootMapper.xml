@@ -20,4 +20,136 @@
           AND rt.password = #{password}
           AND rt.roleId = r.id
     </select>
+
+    <resultMap id="rootMap" type="com.xk.sign.bean.RootInfo">
+        <id column="riId" property="id"/>
+        <result column="realName" property="realName"/>
+        <result column="phone" property="phone"/>
+        <result column="qq" property="qq"/>
+        <result column="weChat" property="wechat"/>
+        <association property="root" javaType="com.xk.sign.bean.Root">
+            <id column="rid" property="id"/>
+            <result column="username" property="username"/>
+            <result column="password" property="password"/>
+            <association property="role" javaType="com.xk.sign.bean.Role">
+                <id column="roId" property="id"/>
+                <result column="roleName" property="roleName"/>
+            </association>
+        </association>
+    </resultMap>
+
+    <select id="getRootList" resultMap="rootMap">
+        select *, ri.id riId, r.id rid, role.id roId
+        from root r,
+             root_info ri,
+             role
+        where r.id = ri.rootId
+          and role.id = r.roleId
+    </select>
+
+    <insert id="addRoot" parameterType="com.xk.sign.bean.RootInfo" useGeneratedKeys="true" keyProperty="root.id">
+        insert into root
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="root.username != null and '' != root.username">
+                username,
+            </if>
+            <if test="root.password != null and '' != root.password">
+                password,
+            </if>
+            <if test="root.role.id != null and '' != root.role.id">
+                roleId
+            </if>
+        </trim>
+        <trim prefix="values(" suffix=")" suffixOverrides=",">
+            <if test="root.username != null and '' != root.username">
+                #{root.username},
+            </if>
+            <if test="root.password != null and '' != root.password">
+                #{root.password},
+            </if>
+            <if test="root.role.id != null and '' != root.role.id">
+                #{root.role.id}
+            </if>
+        </trim>
+    </insert>
+
+    <insert id="addRootInfo" parameterType="com.xk.sign.bean.RootInfo">
+        insert into root_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="realName != null and '' != realName">
+                realName,
+            </if>
+            <if test="phone != null and '' != phone">
+                phone,
+            </if>
+            <if test="qq != null and '' != qq">
+                qq,
+            </if>
+            <if test="wechat != null and '' != wechat">
+                weChat,
+            </if>
+            <if test="root.id != null and '' != root.id">
+                rootId
+            </if>
+        </trim>
+        <trim prefix="values(" suffix=")" suffixOverrides=",">
+            <if test="realName!=null and '' != realName">
+                #{realName},
+            </if>
+            <if test="phone!=null and '' != phone">
+                #{phone},
+            </if>
+            <if test="qq!=null and '' != qq">
+                #{qq},
+            </if>
+            <if test="wechat!=null and '' != wechat">
+                #{wechat},
+            </if>
+            <if test="root.id!=null and '' != root.id">
+                #{root.id}
+            </if>
+        </trim>
+    </insert>
+
+    <delete id="delRootByRootId" parameterType="int">
+        delete
+        from root_info
+        where rootId = #{rootId};
+        delete
+        from root
+        where id = #{rootId};
+    </delete>
+
+    <update id="editRoot" parameterType="com.xk.sign.bean.RootInfo">
+        update root_info
+        set
+        <trim suffixOverrides=",">
+            <if test="realName != null and '' != realName">
+                realName = #{realName},
+            </if>
+            <if test="qq != null">
+                qq = #{qq},
+            </if>
+            <if test="phone != null">
+                phone = #{phone},
+            </if>
+            <if test="wechat != null">
+                weChat = #{wechat}
+            </if>
+        </trim>
+        where rootId = #{root.id};
+        update root set
+        <trim suffixOverrides=",">
+            <if test="root.username != null and '' != root.username">
+                username = #{root.username},
+            </if>
+            <if test="root.password != null and '' != root.password">
+                password = #{root.password},
+            </if>
+            <if test="root.role.id != null and '' != root.role.id">
+                roleId = #{root.role.id},
+            </if>
+        </trim>
+        where id = #{root.id};
+    </update>
 </mapper>

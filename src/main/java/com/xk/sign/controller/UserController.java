@@ -35,4 +35,10 @@ public class UserController {
         return JSON.toJSONString(map);
     }
 
+    @RequestMapping("/editUser")
+    public String editUser(@RequestBody UserInfo userInfo) {
+        HashMap<String, Object> map = userService.editUser(userInfo);
+        return JSON.toJSONString(map);
+    }
+
 }
