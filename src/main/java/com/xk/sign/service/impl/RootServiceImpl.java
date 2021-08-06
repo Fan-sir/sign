@@ -33,7 +33,7 @@ public class RootServiceImpl implements RootService {
         String flag = "error";
         Root root = rootMapper.getRootByMessage(username, password);
         if (root != null) {
-            List<Menu> menus = menuMapper.getMenus(root.getId());
+            List<Menu> menus = menuMapper.getMenus(root.getRole().getId());
             if (null != menus) {
                 for (Menu menu : menus) {
                     menu.setSubMenuList(subMenuMapper.getSubMenus(menu.getMenuId(), menu.getRole().getId()));
