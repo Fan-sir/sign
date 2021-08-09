@@ -25,7 +25,7 @@ public class TimedTask {
         System.out.println("清除IndexTime执行了");
     }
 
-    @Scheduled(cron = "0 0 0 ? * 2")
+    @Scheduled(cron = "0 0 0 ? * 1")
     public void createNextWeekly(){
         Integer weekly = timeUtil.getWeek();
         signTimeMapper.createUserIdByUser();

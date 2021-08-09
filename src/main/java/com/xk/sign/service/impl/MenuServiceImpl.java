@@ -37,7 +37,8 @@ public class MenuServiceImpl implements MenuService {
             mapFlag.put("flag", flag);
             return mapFlag;
         }
-        SignTime signTime = signTimeMapper.findIndexTime(user.getId());
+        Integer weekly = timeUtil.getWeek();
+        SignTime signTime = signTimeMapper.findIndexTime(user.getId(), weekly);
         if (signTime.getIndexTime() != null) {
             flag = "repeat";
             mapFlag.put("flag", flag);
@@ -59,12 +60,13 @@ public class MenuServiceImpl implements MenuService {
         String flag;
         User user = userMapper.find(userNo);
         HashMap<String, String> mapFlag = new HashMap<>();
-        if (null == user){
+        if (null == user) {
             flag = "error";
             mapFlag.put("flag", flag);
             return mapFlag;
         }
-        SignTime signTime = signTimeMapper.findIndexTime(user.getId());
+        Integer weekly = timeUtil.getWeek();
+        SignTime signTime = signTimeMapper.findIndexTime(user.getId(), weekly);
         if (signTime.getIndexTime() == null) {
             flag = "repeat";
             mapFlag.put("flag", flag);
@@ -73,7 +75,6 @@ public class MenuServiceImpl implements MenuService {
         float time1 = TimeUtil.time(signTime.getIndexTime());
         HashMap<String, Object> map = new HashMap<>();
         String week = TimeUtil.getDayOfWeekEng();
-        Integer weekly = timeUtil.getWeek();
         map.put("week", week);
         map.put("userId", user.getId());
         map.put("time", time1);

@@ -19,7 +19,8 @@ public class WebConfig implements WebMvcConfigurer {
           5.最大响应时间
          */
         registry.addMapping("/**")
-                .allowedOrigins("Http://localhost:8080", null)
+//                .allowedOrigins("http://202.189.6.200:12033", null)
+                .allowedOrigins("http://localhost:8080", null)
                 .allowedMethods("GET", "POST", "PUT", "OPTIONS", "DELETE")
                 .allowCredentials(true)
                 .maxAge(3600);

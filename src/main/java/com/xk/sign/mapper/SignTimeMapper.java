@@ -10,7 +10,7 @@ import java.util.List;
 public interface SignTimeMapper {
     void addIndexTime(HashMap<String, Object> map);
 
-    SignTime findIndexTime(Integer id);
+    SignTime findIndexTime(Integer userId, Integer weekly);
 
     void addTime(HashMap<String, Object> map);
 

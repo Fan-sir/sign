@@ -9,7 +9,6 @@ class SignApplicationTests {
 
     @Test
     void contextLoads() {
-        new TimeUtil().getWeek();
     }
 
 }
