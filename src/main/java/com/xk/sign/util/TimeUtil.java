@@ -22,9 +22,7 @@ public class TimeUtil {
         float time = (int) (nowTime - indexTime);
         time = time / 3600000;
         BigDecimal bd = new BigDecimal(time);
-        float t = bd.setScale(2, RoundingMode.HALF_UP).floatValue();
-        System.out.println(t);
-        return t;
+        return bd.setScale(2, RoundingMode.HALF_UP).floatValue();
     }
 
     public static String getDayOfWeekEng() {
@@ -38,7 +36,6 @@ public class TimeUtil {
     }
 
     public Integer getWeek() {
-        System.out.println(week);
         Calendar c = new GregorianCalendar();
         //设置星期一为一周开始的第一天
         c.setFirstDayOfWeek(Calendar.MONDAY);

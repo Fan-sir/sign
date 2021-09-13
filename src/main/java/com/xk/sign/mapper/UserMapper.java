@@ -20,4 +20,10 @@ public interface UserMapper {
     void addUserInfo(UserInfo userInfo);
 
     void editUser(UserInfo userInfo);
+
+    User login(Integer userNo, String password);
+
+    UserInfo getUserInfoByMessage(int userId);
+
+    User getUserById(int userId);
 }

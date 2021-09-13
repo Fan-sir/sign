@@ -1,50 +1,21 @@
 package com.xk.sign.bean;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.Data;
+
+@Schema
+@Data
 public class Root {
+    @Schema(name = "id", description = "Id", example = "1")
     private Integer id;
+
+    @Schema(name = "username", description = "用户名", example = "root")
     private String username;
+
+    @Schema(name = "password", description = "密码", example = "123456")
     private String password;
+
+    @Schema(name = "role", description = "角色")
     private Role role;
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public Role getRole() {
-        return role;
-    }
-
-    public void setRole(Role role) {
-        this.role = role;
-    }
-
-    @Override
-    public String toString() {
-        return "Root{" +
-                "id=" + id +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", role=" + role +
-                '}';
-    }
 }

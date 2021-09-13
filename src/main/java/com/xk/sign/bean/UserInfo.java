@@ -1,80 +1,31 @@
 package com.xk.sign.bean;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.Data;
+
+@Schema
+@Data
 public class UserInfo {
+
+    @Schema(name = "id", description = "Id", example = "1")
     private Integer id;
+
+    @Schema(name = "realName", description = "姓名", example = "张三")
     private String realName;
+
+    @Schema(name = "classes", description = "班级", example = "软件2002")
     private String classes;
+
+    @Schema(name = "phone", description = "电话号", example = "13344445555")
     private String phone;
+
+    @Schema(name = "qq", description = "QQ", example = "123456789")
     private String qq;
+
+    @Schema(name = "totalTime", description = "签到总时长", example = "0.0")
     private Float totalTime;
+
+    @Schema(name = "user", description = "用户")
     private User user;
 
-    public Float getTotalTime() {
-        return totalTime;
-    }
-
-    public void setTotalTime(Float totalTime) {
-        this.totalTime = totalTime;
-    }
-
-    public String getClasses() {
-        return classes;
-    }
-
-    public void setClasses(String classes) {
-        this.classes = classes;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getRealName() {
-        return realName;
-    }
-
-    public void setRealName(String realName) {
-        this.realName = realName;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
-    public String getQq() {
-        return qq;
-    }
-
-    public void setQq(String qq) {
-        this.qq = qq;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    @Override
-    public String toString() {
-        return "UserInfo{" +
-                "id=" + id +
-                ", realName='" + realName + '\'' +
-                ", classes='" + classes + '\'' +
-                ", phone='" + phone + '\'' +
-                ", qq='" + qq + '\'' +
-                ", totalTime=" + totalTime +
-                ", user=" + user +
-                '}';
-    }
 }

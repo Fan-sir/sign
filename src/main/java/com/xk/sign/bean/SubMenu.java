@@ -1,61 +1,26 @@
 package com.xk.sign.bean;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.Data;
+
+@Schema
+@Data
 public class SubMenu {
+
+    @Schema(name = "id", description = "Id", example = "1")
     private Integer id;
+
+    @Schema(name = "subName", description = "分支菜单名", example = "signIn")
     private String subName;
+
+    @Schema(name = "url", description = "url", example = "/sign")
     private String url;
+
+    @Schema(name = "icon", description = "图标名", example = "block")
     private String icon;
+
+    @Schema(name = "color", description = "颜色", example = "red")
     private String color;
 
-    public String getColor() {
-        return color;
-    }
-
-    public void setColor(String color) {
-        this.color = color;
-    }
-
-    public String getIcon() {
-        return icon;
-    }
-
-    public void setIcon(String icon) {
-        this.icon = icon;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getSubName() {
-        return subName;
-    }
-
-    public void setSubName(String subName) {
-        this.subName = subName;
-    }
-
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
-    }
-
-    @Override
-    public String toString() {
-        return "SubMenu{" +
-                "id=" + id +
-                ", subName='" + subName + '\'' +
-                ", url='" + url + '\'' +
-                ", icon='" + icon + '\'' +
-                ", color='" + color + '\'' +
-                '}';
-    }
 
 }

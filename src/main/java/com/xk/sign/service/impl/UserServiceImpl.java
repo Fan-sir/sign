@@ -1,14 +1,17 @@
 package com.xk.sign.service.impl;
 
+import com.xk.sign.bean.User;
 import com.xk.sign.bean.UserInfo;
 import com.xk.sign.mapper.SignTimeMapper;
 import com.xk.sign.mapper.UserMapper;
 import com.xk.sign.service.UserService;
+import com.xk.sign.token.TokenService;
 import com.xk.sign.util.TimeUtil;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -24,6 +27,9 @@ public class UserServiceImpl implements UserService {
 
     @Resource(name = "timeUtil")
     private TimeUtil timeUtil;
+
+    @Resource(name = "tokenService")
+    private TokenService tokenService;
 
     @Override
     public HashMap<String, List<UserInfo>> getUserList() {
@@ -66,6 +72,23 @@ public class UserServiceImpl implements UserService {
         String flag = "ok";
         HashMap<String, Object> map = new HashMap<>();
         userMapper.editUser(userInfo);
+        map.put("flag", flag);
+
+        return map;
+    }
+
+    @Override
+    public HashMap<String, Object> login(Integer userNo, String password) {
+        HashMap<String, Object> map = new HashMap<>();
+        String flag = "error";
+        User user = userMapper.login(userNo, password);
+        if (user != null) {
+            UserInfo userInfo = userMapper.getUserInfoByMessage(user.getId());
+            flag = "ok";
+            String token = tokenService.getToken(user);
+            map.put("userInfo", userInfo);
+            map.put("token", token);
+        }
         map.put("flag", flag);
 
         return map;

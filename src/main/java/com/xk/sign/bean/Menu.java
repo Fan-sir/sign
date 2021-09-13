@@ -1,92 +1,36 @@
 package com.xk.sign.bean;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.Data;
+
 import java.util.List;
 
+@Schema
+@Data
 public class Menu {
+
+    @Schema(name = "id", description = "Id", example = "1")
     private Integer id;
+
+    @Schema(name = "title", description = "主菜单名", example = "sign")
     private String title;
+
+    @Schema(name = "url", description = "url", example = "/sign")
     private String url;
+
+    @Schema(name = "icon", description = "图标名", example = "block")
     private String icon;
+
+    @Schema(name = "color", description = "颜色", example = "red")
     private String color;
+
+    @Schema(name = "menuId", description = "第几个菜单", example = "1")
     private Integer menuId;
+
+    @Schema(name = "role", description = "角色")
     private Role role;
+
+    @Schema(name = "subMenuList", description = "分支菜单")
     private List<SubMenu> subMenuList;
 
-    public Integer getMenuId() {
-        return menuId;
-    }
-
-    public void setMenuId(Integer menuId) {
-        this.menuId = menuId;
-    }
-
-    public String getColor() {
-        return color;
-    }
-
-    public void setColor(String color) {
-        this.color = color;
-    }
-
-    public String getIcon() {
-        return icon;
-    }
-
-    public void setIcon(String icon) {
-        this.icon = icon;
-    }
-
-    public Role getRole() {
-        return role;
-    }
-
-    public void setRole(Role role) {
-        this.role = role;
-    }
-
-    public List<SubMenu> getSubMenuList() {
-        return subMenuList;
-    }
-
-    public void setSubMenuList(List<SubMenu> subMenuList) {
-        this.subMenuList = subMenuList;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
-    }
-
-    @Override
-    public String toString() {
-        return "Menu{" +
-                "id=" + id +
-                ", title='" + title + '\'' +
-                ", url='" + url + '\'' +
-                ", icon='" + icon + '\'' +
-                ", color='" + color + '\'' +
-                ", menuId=" + menuId +
-                ", role=" + role +
-                ", subMenuList=" + subMenuList +
-                '}';
-    }
 }
