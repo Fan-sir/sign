@@ -14,6 +14,7 @@ import java.util.List;
 
 @Tag(name = "root-controller", description = "管理员类接口")
 @RestController
+@RequestMapping("root")
 public class RootController {
 
     @Resource(name = "rootService")

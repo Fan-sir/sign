@@ -47,6 +47,7 @@ public class TokenInterceptor implements HandlerInterceptor {
                     throw new RuntimeException("无Token,请重新登录");
                 }
                 int userId;
+                long indexTime;
                 try {
                     userId = Integer.parseInt(JWT.decode(token).getAudience().get(0));
                 } catch (JWTDecodeException e) {

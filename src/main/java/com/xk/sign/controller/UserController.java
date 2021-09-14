@@ -40,6 +40,7 @@ public class UserController {
 
     @ApiOperation("通过UserId删除User")
     @DeleteMapping("/delUserByUserId")
+    @LoginToken
     public String delUserByUserId(@RequestBody List<Integer> list) {
         HashMap<String, Object> map = userService.delUserByUserId(list);
         return JSON.toJSONString(map);
@@ -47,6 +48,7 @@ public class UserController {
 
     @ApiOperation("增加User")
     @PostMapping("/addUser")
+    @LoginToken
     public String addUser(@RequestBody UserInfo userInfo) {
         HashMap<String, Object> map = userService.addUser(userInfo);
         return JSON.toJSONString(map);
@@ -54,6 +56,7 @@ public class UserController {
 
     @ApiOperation("编辑User信息")
     @PutMapping("/editUser")
+    @LoginToken
     public String editUser(@RequestBody UserInfo userInfo) {
         HashMap<String, Object> map = userService.editUser(userInfo);
         return JSON.toJSONString(map);
