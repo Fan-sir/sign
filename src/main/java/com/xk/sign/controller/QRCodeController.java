@@ -22,13 +22,36 @@ public class QRCodeController {
 
     @GetMapping("/signIn")
     @LoginToken
-    public void signInQRCode(User user, HttpServletRequest request, HttpServletResponse response) {
+    public void signInQRCode(HttpServletRequest request, HttpServletResponse response) {
         String token = request.getHeader("token");
         long indexTime = Long.parseLong(JWT.decode(token).getAudience().get(1));
 
-        //如果映射是/qrcode,则看二维码是否过期
         if ((indexTime - System.currentTimeMillis()) < 0) {
             url.append("/menu/singIn");
+            String codeContent = String.valueOf(url);
+            System.out.println("codeContent=" + codeContent);
+            try {
+                /*
+                 * 调用工具类生成二维码并输出到输出流中
+                 */
+                QRCodeUtil.createCodeToOutputStream(codeContent, response.getOutputStream());
+                log.info("成功生成二维码!");
+            } catch (IOException e) {
+                log.error("发生错误， 错误信息是：{}！", e.getMessage());
+            }
+        } else {
+            throw new RuntimeException("二维码有效,请直接扫码！");
+        }
+    }
+
+    @GetMapping("/signOut")
+    @LoginToken
+    public void signOutQRCode(HttpServletRequest request, HttpServletResponse response) {
+        String token = request.getHeader("token");
+        long indexTime = Long.parseLong(JWT.decode(token).getAudience().get(1));
+
+        if ((indexTime - System.currentTimeMillis()) < 0) {
+            url.append("/menu/signOut");
             String codeContent = String.valueOf(url);
             System.out.println("codeContent=" + codeContent);
             try {
