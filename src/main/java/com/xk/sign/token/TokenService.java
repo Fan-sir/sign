@@ -11,14 +11,13 @@ import java.util.Date;
 @Service("tokenService")
 public class TokenService {
 
-    private static final long EXPIRE_TIME = 10 * 60 * 1000;
-    private static final long SIGN_USER = 3 * 1000;//签到可用时长范围
+    private static final long EXPIRE_TIME = 999 * 60 * 1000;
 
     public String getToken(User user) {
         Date date = new Date(System.currentTimeMillis() + EXPIRE_TIME);
         String token = "";
         System.out.println(date);
-        token = JWT.create().withAudience(user.getId() + "", System.currentTimeMillis() + SIGN_USER + "")
+        token = JWT.create().withAudience(user.getId() + "")
                 .withExpiresAt(date)
                 .sign(Algorithm.HMAC256(user.getPassword()));
         return token;

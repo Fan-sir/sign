@@ -5,7 +5,9 @@ import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTDecodeException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
+import com.xk.sign.bean.Root;
 import com.xk.sign.bean.User;
+import com.xk.sign.mapper.RootMapper;
 import com.xk.sign.mapper.UserMapper;
 import com.xk.sign.token.LoginToken;
 import com.xk.sign.token.PassToken;
@@ -22,6 +24,9 @@ public class TokenInterceptor implements HandlerInterceptor {
 
     @Resource(name = "userMapper")
     private UserMapper userMapper;
+
+    @Resource(name = "rootMapper")
+    private RootMapper rootMapper;
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
@@ -46,25 +51,47 @@ public class TokenInterceptor implements HandlerInterceptor {
                 if (token == null) {
                     throw new RuntimeException("无Token,请重新登录");
                 }
-                int userId;
-                long indexTime;
-                try {
-                    userId = Integer.parseInt(JWT.decode(token).getAudience().get(0));
-                } catch (JWTDecodeException e) {
-                    throw new RuntimeException("解码错误");
+                if (request.getServletPath().contains("/user")){
+                    int userId;
+                    try {
+                        userId = Integer.parseInt(JWT.decode(token).getAudience().get(0));
+                    } catch (JWTDecodeException e) {
+                        throw new RuntimeException("解码错误");
+                    }
+
+                    User user = userMapper.getUserById(userId);
+                    if (user == null) {
+                        throw new RuntimeException("用户不存在,请重新登录");
+                    }
+                    JWTVerifier jwtVerifier = JWT.require(Algorithm.HMAC256(user.getPassword())).build();
+                    try {
+                        jwtVerifier.verify(token);
+                    } catch (JWTVerificationException e) {
+                        throw new RuntimeException("验证token错误");
+                    }
+                    return true;
+                }
+                if (request.getServletPath().contains("/root")){
+                    int rootId;
+                    try {
+                        rootId = Integer.parseInt(JWT.decode(token).getAudience().get(0));
+                    } catch (JWTDecodeException e) {
+                        throw new RuntimeException("解码错误");
+                    }
+
+                    Root root = rootMapper.getRootById(rootId);
+                    if (root == null) {
+                        throw new RuntimeException("用户不存在,请重新登录");
+                    }
+                    JWTVerifier jwtVerifier = JWT.require(Algorithm.HMAC256(root.getPassword())).build();
+                    try {
+                        jwtVerifier.verify(token);
+                    } catch (JWTVerificationException e) {
+                        throw new RuntimeException("验证token错误");
+                    }
+                    return true;
                 }
 
-                User user = userMapper.getUserById(userId);
-                if (user == null) {
-                    throw new RuntimeException("用户不存在,请重新登录");
-                }
-                JWTVerifier jwtVerifier = JWT.require(Algorithm.HMAC256(user.getPassword())).build();
-                try {
-                    jwtVerifier.verify(token);
-                } catch (JWTVerificationException e) {
-                    throw new RuntimeException("验证token错误");
-                }
-                return true;
             }
         }
         return true;

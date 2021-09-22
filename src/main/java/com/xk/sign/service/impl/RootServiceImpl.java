@@ -7,6 +7,7 @@ import com.xk.sign.mapper.MenuMapper;
 import com.xk.sign.mapper.RootMapper;
 import com.xk.sign.mapper.SubMenuMapper;
 import com.xk.sign.service.RootService;
+import com.xk.sign.token.TokenService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -27,21 +28,18 @@ public class RootServiceImpl implements RootService {
     @Resource(name = "subMenuMapper")
     private SubMenuMapper subMenuMapper;
 
+    @Resource(name = "tokenService")
+    private TokenService tokenService;
+
     @Override
     public HashMap<String, Object> login(String username, String password) {
         HashMap<String, Object> map = new HashMap<>();
         String flag = "error";
         Root root = rootMapper.getRootByMessage(username, password);
         if (root != null) {
-            List<Menu> menus = menuMapper.getMenus(root.getRole().getId());
-            if (null != menus) {
-                for (Menu menu : menus) {
-                    menu.setSubMenuList(subMenuMapper.getSubMenus(menu.getMenuId(), menu.getRole().getId()));
-                }
-                map.put("menus", menus);
-            }
             flag = "ok";
-            map.put("root", root);
+            String token = tokenService.getToken(root);
+            map.put("token", token);
         }
         map.put("flag", flag);
 

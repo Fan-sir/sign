@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
@@ -18,56 +17,46 @@ import java.io.IOException;
 @RequestMapping("/qrcode")
 public class QRCodeController {
 
-    StringBuffer url = new StringBuffer("www.xkyun.top:12032");
+    private static final long SIGN_USER = 3 * 1000;//签到可用时长范围
+    private static final String url = "http://www.xkyun.top:12032";//扫码跳转链接
 
     @GetMapping("/signIn")
     @LoginToken
-    public void signInQRCode(HttpServletRequest request, HttpServletResponse response) {
-        String token = request.getHeader("token");
-        long indexTime = Long.parseLong(JWT.decode(token).getAudience().get(1));
+    public void signInQRCode(HttpServletResponse response) {
+        StringBuffer urlS = new StringBuffer(url);
 
-        if ((indexTime - System.currentTimeMillis()) < 0) {
-            url.append("/menu/singIn");
-            String codeContent = String.valueOf(url);
-            System.out.println("codeContent=" + codeContent);
-            try {
-                /*
-                 * 调用工具类生成二维码并输出到输出流中
-                 */
-                QRCodeUtil.createCodeToOutputStream(codeContent, response.getOutputStream());
-                log.info("成功生成二维码!");
-            } catch (IOException e) {
-                log.error("发生错误， 错误信息是：{}！", e.getMessage());
-            }
-        } else {
-            throw new RuntimeException("二维码有效,请直接扫码！");
+        urlS.append("/menu/signIn?");
+        urlS.append(System.currentTimeMillis() + SIGN_USER);
+        String codeContent = String.valueOf(urlS);
+        System.out.println("codeContent=" + codeContent);
+        try {
+            /*
+             * 调用工具类生成二维码并输出到输出流中
+             */
+            QRCodeUtil.createCodeToOutputStream(codeContent, response.getOutputStream());
+            log.info("成功生成二维码!");
+        } catch (IOException e) {
+            log.error("发生错误， 错误信息是：{}！", e.getMessage());
         }
     }
 
     @GetMapping("/signOut")
     @LoginToken
-    public void signOutQRCode(HttpServletRequest request, HttpServletResponse response) {
-        String token = request.getHeader("token");
-        long indexTime = Long.parseLong(JWT.decode(token).getAudience().get(1));
-
-        if ((indexTime - System.currentTimeMillis()) < 0) {
-            url.append("/menu/signOut");
-            String codeContent = String.valueOf(url);
-            System.out.println("codeContent=" + codeContent);
-            try {
-                /*
-                 * 调用工具类生成二维码并输出到输出流中
-                 */
-                QRCodeUtil.createCodeToOutputStream(codeContent, response.getOutputStream());
-                log.info("成功生成二维码!");
-            } catch (IOException e) {
-                log.error("发生错误， 错误信息是：{}！", e.getMessage());
-            }
-        } else {
-            throw new RuntimeException("二维码有效,请直接扫码！");
+    public void signOutQRCode(HttpServletResponse response) {
+        StringBuffer urlS = new StringBuffer(url);
+        urlS.append("/menu/signOut");
+        urlS.append(System.currentTimeMillis() + SIGN_USER);
+        String codeContent = String.valueOf(urlS);
+        System.out.println("codeContent=" + codeContent);
+        try {
+            /*
+             * 调用工具类生成二维码并输出到输出流中
+             */
+            QRCodeUtil.createCodeToOutputStream(codeContent, response.getOutputStream());
+            log.info("成功生成二维码!");
+        } catch (IOException e) {
+            log.error("发生错误， 错误信息是：{}！", e.getMessage());
         }
-
-
     }
 
 }

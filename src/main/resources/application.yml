@@ -6,8 +6,8 @@ spring:
     driverClassName:  com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/shuangtixi_new?useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=UTC&allowMultiQueries=true
     username: root
-#    password: Password123mysql..
-    password: password123mysql..
+    password: Password123mysql..
+#    password: password123mysql..
 
 mybatis:
   mapper-locations: classpath:mapper/*.xml

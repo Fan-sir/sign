@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
 
-@RestController
+@RestController///'''/
 @Tag(name = "menu-controller", description = "菜单类接口")
 @RequestMapping("menu")
 public class MenuController {
@@ -23,15 +23,22 @@ public class MenuController {
     @Resource(name = "menuService")
     private MenuService menuService;
 
+    @ApiOperation("获取菜单列表接口")
+    @GetMapping("/getMenus")
+    public String getMenus(HttpServletRequest request){
+        int rootId = Integer.parseInt(JWT.decode(request.getHeader("token")).getAudience().get(0));
+        HashMap<String, Object> map = menuService.getMenus(rootId);
+        return JSON.toJSONString(map);
+    }
+
     @ApiOperation("签到接口")
     @GetMapping("/signIn")
     public String signIn(User user, HttpServletRequest request) {
         String clientId = request.getHeader("clientId");
         if (clientId != null) {
             if (clientId.equals("6510e571769e8c321df17a6f83ee4303")) {//手机客户端Id
-                String token = request.getHeader("token");
-                long indexTime = Long.parseLong(JWT.decode(token).getAudience().get(1));
-                if ((indexTime - System.currentTimeMillis()) < 0) {
+                long expirationTime = Long.parseLong(request.getHeader("expirationTime"));
+                if ((expirationTime - System.currentTimeMillis()) < 0) {
                     throw new RuntimeException("二维码已失效!");
                 }
                 System.out.println(user);
@@ -58,9 +65,8 @@ public class MenuController {
         String clientId = request.getHeader("clientId");
         if (clientId != null) {
             if (clientId.equals("6510e571769e8c321df17a6f83ee4303")) {//手机客户端Id
-                String token = request.getHeader("token");
-                long indexTime = Long.parseLong(JWT.decode(token).getAudience().get(1));
-                if ((indexTime - System.currentTimeMillis()) < 0) {
+                long expirationTime = Long.parseLong(request.getHeader("expirationTime"));
+                if ((expirationTime - System.currentTimeMillis()) < 0) {
                     throw new RuntimeException("二维码已失效!");
                 }
                 System.out.println(user);

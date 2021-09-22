@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.xk.sign.bean.Root;
 import com.xk.sign.bean.RootInfo;
 import com.xk.sign.service.RootService;
+import com.xk.sign.token.LoginToken;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;
@@ -29,6 +30,7 @@ public class RootController {
 
     @ApiOperation("获取管理员列表")
     @GetMapping("/admin")
+    @LoginToken
     public String getRootList() {
         HashMap<String, Object> map = rootService.getRootList();
         return JSON.toJSONString(map);
@@ -36,6 +38,7 @@ public class RootController {
 
     @ApiOperation("增加管理员")
     @PostMapping("/addRoot")
+    @LoginToken
     public String addRoot(@RequestBody RootInfo rootInfo) {
         HashMap<String, Object> map = rootService.addRoot(rootInfo);
         return JSON.toJSONString(map);
@@ -43,6 +46,7 @@ public class RootController {
 
     @ApiOperation("通过RootId删除Root")
     @DeleteMapping("/delRootByRootId")
+    @LoginToken
     public String delRootByRootId(@RequestBody List<Integer> list) {
         HashMap<String, Object> map = rootService.delRootByRootId(list);
         return JSON.toJSONString(map);
@@ -50,6 +54,7 @@ public class RootController {
 
     @ApiOperation("修改Root")
     @PutMapping("/editRoot")
+    @LoginToken
     public String editRoot(@RequestBody RootInfo rootInfo) {
         HashMap<String, Object> map = rootService.editRoot(rootInfo);
         return JSON.toJSONString(map);

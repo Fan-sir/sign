@@ -152,4 +152,11 @@
         </trim>
         where id = #{root.id};
     </update>
+
+    <select id="getRootById" parameterType="int" resultType="com.xk.sign.bean.Root">
+        SELECT *
+        FROM root
+        WHERE id = #{rootId}
+    </select>
+
 </mapper>

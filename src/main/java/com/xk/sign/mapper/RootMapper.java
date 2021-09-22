@@ -20,4 +20,6 @@ public interface RootMapper {
     void delRootByRootId(Integer i);
 
     void editRoot(RootInfo rootInfo);
+
+    Root getRootById(int rootId);
 }
