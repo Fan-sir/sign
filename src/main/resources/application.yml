@@ -4,10 +4,9 @@ spring:
   datasource:
     #MySQL配置
     driverClassName:  com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/shuangtixi_new?useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=UTC&allowMultiQueries=true
-    username: root
-    password: Password123mysql..
-#    password: password123mysql..
+    url: jdbc:mysql://rm-2zef1c649xy6k4asloo.mysql.rds.aliyuncs.com:3306/shuangtixi?useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=UTC&allowMultiQueries=true
+    username: mydata
+    password: Kb518518
 
 mybatis:
   mapper-locations: classpath:mapper/*.xml
@@ -15,5 +14,5 @@ server:
   port: 12032
 
 # 值为当前周 减去 你想要的当前周为第几周的周
-week: 27
+week: 32
 

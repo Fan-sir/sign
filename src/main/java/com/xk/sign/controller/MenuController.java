@@ -8,6 +8,7 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
@@ -25,7 +26,7 @@ public class MenuController {
 
     @ApiOperation("获取菜单列表接口")
     @GetMapping("/getMenus")
-    public String getMenus(HttpServletRequest request){
+    public String getMenus(HttpServletRequest request) {
         int rootId = Integer.parseInt(JWT.decode(request.getHeader("token")).getAudience().get(0));
         HashMap<String, Object> map = menuService.getMenus(rootId);
         return JSON.toJSONString(map);
@@ -33,22 +34,22 @@ public class MenuController {
 
     @ApiOperation("签到接口")
     @GetMapping("/signIn")
-    public String signIn(User user, HttpServletRequest request) {
+    public String signIn(Long expirationTime, Integer userNo, HttpServletRequest request) {
+        System.out.println(expirationTime);
         String clientId = request.getHeader("clientId");
         if (clientId != null) {
             if (clientId.equals("6510e571769e8c321df17a6f83ee4303")) {//手机客户端Id
-                long expirationTime = Long.parseLong(request.getHeader("expirationTime"));
+//                long expirationTime = Long.parseLong(request.getHeader("expirationTime"));
                 if ((expirationTime - System.currentTimeMillis()) < 0) {
                     throw new RuntimeException("二维码已失效!");
                 }
-                System.out.println(user);
-                HashMap<String, String> map = menuService.signIn(user.getUserNo());
+                Integer userNo_ = Integer.parseInt(JWT.decode(request.getHeader("token")).getAudience().get(0));
+                HashMap<String, String> map = menuService.signIn(userNo_);
                 System.out.println(JSON.toJSONString(map));
                 return JSON.toJSONString(map);
             }
             if (clientId.equals("f8880cb4b31f7a32011bd008f9bb6b10")) {
-                System.out.println(user);
-                HashMap<String, String> map = menuService.signIn(user.getUserNo());
+                HashMap<String, String> map = menuService.signIn(userNo);
                 System.out.println(JSON.toJSONString(map));
                 return JSON.toJSONString(map);
             }
@@ -60,23 +61,22 @@ public class MenuController {
 
     @GetMapping("/signOut")
     @ApiOperation("签退接口")
-    public String signOut(User user, HttpServletRequest request, HttpServletResponse response) {
+    public String signOut(Integer userNo, HttpServletRequest request, Long expirationTime) {
 
         String clientId = request.getHeader("clientId");
         if (clientId != null) {
             if (clientId.equals("6510e571769e8c321df17a6f83ee4303")) {//手机客户端Id
-                long expirationTime = Long.parseLong(request.getHeader("expirationTime"));
+//                long expirationTime = Long.parseLong(request.getHeader("expirationTime"));
                 if ((expirationTime - System.currentTimeMillis()) < 0) {
                     throw new RuntimeException("二维码已失效!");
                 }
-                System.out.println(user);
-                HashMap<String, String> map = menuService.signOut(user.getUserNo());
+                Integer userNo_ = Integer.parseInt(JWT.decode(request.getHeader("token")).getAudience().get(0));
+                HashMap<String, String> map = menuService.signOut(userNo_);
                 System.out.println(JSON.toJSONString(map));
                 return JSON.toJSONString(map);
             }
             if (clientId.equals("f8880cb4b31f7a32011bd008f9bb6b10")) {
-                System.out.println(user);
-                HashMap<String, String> map = menuService.signOut(user.getUserNo());
+                HashMap<String, String> map = menuService.signOut(userNo);
                 System.out.println(JSON.toJSONString(map));
                 return JSON.toJSONString(map);
             }

@@ -22,41 +22,36 @@ public class QRCodeController {
 
     @GetMapping("/signIn")
     @LoginToken
-    public void signInQRCode(HttpServletResponse response) {
+    public String signInQRCode(HttpServletResponse response) {
         StringBuffer urlS = new StringBuffer(url);
 
-        urlS.append("/menu/signIn?");
+        urlS.append("/menu/signIn?expirationTime=");
         urlS.append(System.currentTimeMillis() + SIGN_USER);
         String codeContent = String.valueOf(urlS);
         System.out.println("codeContent=" + codeContent);
-        try {
-            /*
-             * 调用工具类生成二维码并输出到输出流中
-             */
-            QRCodeUtil.createCodeToOutputStream(codeContent, response.getOutputStream());
-            log.info("成功生成二维码!");
-        } catch (IOException e) {
-            log.error("发生错误， 错误信息是：{}！", e.getMessage());
-        }
+        /*
+         * 调用工具类生成二维码并输出到输出流中
+         */
+        String qrcode = QRCodeUtil.createCodeToOutputStream(codeContent);
+        log.info("成功生成二维码!");
+        return qrcode;
     }
 
     @GetMapping("/signOut")
     @LoginToken
-    public void signOutQRCode(HttpServletResponse response) {
+    public String signOutQRCode(HttpServletResponse response) {
         StringBuffer urlS = new StringBuffer(url);
-        urlS.append("/menu/signOut");
+        urlS.append("/menu/signOut?expirationTime=");
         urlS.append(System.currentTimeMillis() + SIGN_USER);
         String codeContent = String.valueOf(urlS);
         System.out.println("codeContent=" + codeContent);
-        try {
-            /*
-             * 调用工具类生成二维码并输出到输出流中
-             */
-            QRCodeUtil.createCodeToOutputStream(codeContent, response.getOutputStream());
-            log.info("成功生成二维码!");
-        } catch (IOException e) {
-            log.error("发生错误， 错误信息是：{}！", e.getMessage());
-        }
+        /*
+         * 调用工具类生成二维码并输出到输出流中
+         */
+        String qrcode = QRCodeUtil.createCodeToOutputStream(codeContent);
+        log.info("成功生成二维码!");
+
+        return qrcode;
     }
 
 }

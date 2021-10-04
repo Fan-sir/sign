@@ -11,14 +11,12 @@ import org.springframework.stereotype.Component;
 import javax.imageio.ImageIO;
 import javax.swing.filechooser.FileSystemView;
 import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.URL;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Hashtable;
-import java.util.Map;
+import java.util.*;
 
 @Component
 @Slf4j
@@ -100,7 +98,10 @@ public class QRCodeUtil {
             /*
              * 区别就是以一句，输出到输出流中，如果第三个参数是 File，则输出到文件中
              */
+
             ImageIO.write(bufferedImage, "png", outputStream);
+            encodeToString(bufferedImage, "png");
+
             log.info("二维码图片生成到输出流成功...");
         } catch (Exception e) {
             e.printStackTrace();
@@ -246,4 +247,47 @@ public class QRCodeUtil {
         }
         return resultStr;
     }
+
+    public static String encodeToString(BufferedImage image, String type) {
+        String imageString = null;
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+
+        try {
+            ImageIO.write(image, type, bos);
+            byte[] imageBytes = bos.toByteArray();
+
+            Base64.Encoder encoder = Base64.getEncoder();
+            imageString = encoder.encodeToString(imageBytes);
+
+            bos.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        System.out.println(imageString);
+        return imageString;
+    }
+
+    public static String createCodeToOutputStream(String codeContent) {
+        String png = "";
+        if (codeContent == null || "".equals(codeContent.trim())) {
+            throw new RuntimeException("二维码内容为空，不进行操作...");
+        }
+        try {
+            codeContent = codeContent.trim();
+
+            BufferedImage bufferedImage = getBufferedImage(codeContent);
+
+            //将BufferedImage转为String
+            png = encodeToString(bufferedImage, "png");
+            log.info("二维码图片生成到输出流成功...");
+        } catch (Exception e) {
+            e.printStackTrace();
+            log.error("发生错误: {}!", e.getMessage());
+        }
+        if (png.equals("")) {
+            throw new RuntimeException("二维码生成失败!");
+        }
+        return png;
+    }
+
 }
