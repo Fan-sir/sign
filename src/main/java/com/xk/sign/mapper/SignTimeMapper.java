@@ -29,4 +29,6 @@ public interface SignTimeMapper {
     Float getTotalTime(Integer id);
 
     void createSignTimeByUserId(Integer weekly, Integer userId);
+
+    Float queryUserSignInfoById(HashMap<String, Object> map);
 }

@@ -2,6 +2,7 @@ package com.xk.sign.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.xk.sign.bean.SignTime;
 import com.xk.sign.bean.User;
 import com.xk.sign.bean.UserInfo;
 import com.xk.sign.service.UserService;
@@ -59,6 +60,14 @@ public class UserController {
     @LoginToken
     public String editUser(@RequestBody UserInfo userInfo) {
         HashMap<String, Object> map = userService.editUser(userInfo);
+        return JSON.toJSONString(map);
+    }
+
+    @ApiOperation("查询某一个用户签到信息通过Id")
+    @GetMapping("/queryUserSignInfoById")
+    @LoginToken
+    public String queryUserSignInfoById(Integer userId) {
+        HashMap<String, Object> map = userService.queryUserSignInfoById(userId);
         return JSON.toJSONString(map);
     }
 

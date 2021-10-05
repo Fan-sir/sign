@@ -96,4 +96,11 @@
         insert into sign_time(weekly, userId)
         values (#{weekly}, #{userId})
     </insert>
+
+    <select id="queryUserSignInfoById" parameterType="map" resultType="float">
+        select ${dayOfWeekEng}
+        from sign_time
+        where userId = #{userId}
+          and weekly = #{weekly}
+    </select>
 </mapper>

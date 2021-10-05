@@ -1,5 +1,6 @@
 package com.xk.sign.service.impl;
 
+import com.xk.sign.bean.SignTime;
 import com.xk.sign.bean.User;
 import com.xk.sign.bean.UserInfo;
 import com.xk.sign.mapper.SignTimeMapper;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.sql.Time;
 import java.util.HashMap;
 import java.util.List;
 
@@ -92,4 +94,25 @@ public class UserServiceImpl implements UserService {
 
         return map;
     }
+
+    @Override
+    public HashMap<String, Object> queryUserSignInfoById(Integer userId) {
+
+        HashMap<String, Object> map = new HashMap<>();
+        HashMap<String, Object> map1 = new HashMap<>();
+        Integer weekly = timeUtil.getWeek();
+        String dayOfWeekEng = TimeUtil.getDayOfWeekEng();
+        map1.put("userId", userId);
+        map1.put("weekly", weekly);
+        map1.put("dayOfWeekEng", dayOfWeekEng);
+
+        Float dayOfWeekEngInfo = signTimeMapper.queryUserSignInfoById(map1);
+        Float timeWeekTotal = signTimeMapper.getTotalTime(userId);
+
+        map.put("dayOfWeekEngInfo", dayOfWeekEngInfo);
+        map.put("timeWeekTotal", timeWeekTotal);
+        return map;
+    }
+
+
 }
